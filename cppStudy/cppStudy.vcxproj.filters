@@ -37,6 +37,9 @@
     <Filter Include="소스 파일\Tutorial\Sort">
       <UniqueIdentifier>{22383d7b-14d9-4359-aa72-e9284e8684a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tutorial\DataStructure\Tree">
+      <UniqueIdentifier>{07c90fe7-e111-4101-ab88-778fe531058b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="sort.h">
       <Filter>소스 파일\Tutorial\Sort</Filter>
+    </ClInclude>
+    <ClInclude Include="BinarySearchTree.h">
+      <Filter>소스 파일\Tutorial\DataStructure\Tree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

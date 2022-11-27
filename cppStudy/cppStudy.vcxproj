@@ -146,6 +146,7 @@
     <ClCompile Include="sort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="CDArr.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="DynamicArr.h" />
