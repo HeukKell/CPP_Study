@@ -1,4 +1,4 @@
-#include "CDArr.h"
+ï»¿#include "CDArr.h"
 #include <assert.h>
 #include <iostream>
 
@@ -6,7 +6,7 @@ void CDArr::pushBack(int data)
 {
 	if (currentCount >= maxSize)
 	{
-		// ¿µ¿ª Àç¼³Á¤
+		// ì˜ì—­ ì¬ì„¤ì •
 		resize(currentCount * 2);
 	}
 
@@ -16,25 +16,25 @@ void CDArr::pushBack(int data)
 
 void CDArr::resize(int ExpantionSize)
 {
-	// ÀÔ·ÂÇÑ »çÀÌÁî ¸¸Å­ È®Ãæ
-	// ÇÏÁö¸¸ Áö±İ°³¼öº¸´Ù ÀûÀ¸¸é ¾ÈµÅ.
+	// ì…ë ¥í•œ ì‚¬ì´ì¦ˆ ë§Œí¼ í™•ì¶©
+	// í•˜ì§€ë§Œ ì§€ê¸ˆê°œìˆ˜ë³´ë‹¤ ì ìœ¼ë©´ ì•ˆë¼.
 	if (ExpantionSize <= currentCount) {
 		assert(nullptr);
 	}
 
-	// »õ °ø°£ È®º¸
+	// ìƒˆ ê³µê°„ í™•ë³´
 	int* newStorage = new int[ExpantionSize];
 
-	// µ¥ÀÌÅÍ ÀÌ»ç
+	// ë°ì´í„° ì´ì‚¬
 	for (int i = 0; i < currentCount; i++) {
 		newStorage[i] = DataArr[i];
 	}
 
-	// ±âÁ¸ °ø°£ ÇØÁöÈÄ »õ°ø°£ °¡¸®Å°±â
+	// ê¸°ì¡´ ê³µê°„ í•´ì§€í›„ ìƒˆê³µê°„ ê°€ë¦¬í‚¤ê¸°
 	delete[] DataArr;
 	DataArr = newStorage;
 
-	maxSize = ExpantionSize; // ÃÖ´ë¿µ¿ª Àç±âÀÔ
+	maxSize = ExpantionSize; // ìµœëŒ€ì˜ì—­ ì¬ê¸°ì…
 
 }
 
@@ -43,9 +43,9 @@ CDArr::CDArr()
 	currentCount(0),
 	maxSize(2)
 {
-	// ÃÊ±âÈ­
-	// 2°³°¡ µé¾î°¥ ¼ö ÀÖÀ»¸¸Å­ Èü¿µ¿ª È®º¸
-	DataArr = new int[2]; // int 2°³ µé¾î°¥ ¿µ¿ª È®º¸
+	// ì´ˆê¸°í™”
+	// 2ê°œê°€ ë“¤ì–´ê°ˆ ìˆ˜ ìˆì„ë§Œí¼ í™ì˜ì—­ í™•ë³´
+	DataArr = new int[2]; // int 2ê°œ ë“¤ì–´ê°ˆ ì˜ì—­ í™•ë³´
 
 }
 

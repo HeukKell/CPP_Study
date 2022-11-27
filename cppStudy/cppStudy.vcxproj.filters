@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\HeukKell">
+      <UniqueIdentifier>{2749ad66-1c0a-48e6-9397-6b37097d55d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tutorial">
+      <UniqueIdentifier>{26095788-9d3e-4a48-b295-78e6786faf7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tutorial\DataStructure">
+      <UniqueIdentifier>{e307f166-3f0e-4921-aa45-5cc8b0cd1ea6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tutorial\DataStructure\List">
+      <UniqueIdentifier>{2dbcd0b5-6017-4adc-834d-b399a6d5e288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tutorial\DataStructure\DynamicArr">
+      <UniqueIdentifier>{13582545-afef-4107-86f5-b8ff1b992d9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tutorial\DataStructure\Container">
+      <UniqueIdentifier>{43b8756e-ddd4-425c-8aab-9e60f3f4300e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tutorial\DataStructure\DynamicArr_Class">
+      <UniqueIdentifier>{3847cdb8-4d2d-45ac-8fe0-044242e33ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tutorial\Sort">
+      <UniqueIdentifier>{22383d7b-14d9-4359-aa72-e9284e8684a7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>소스 파일\Tutorial\DataStructure\List</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicArr.cpp">
+      <Filter>소스 파일\Tutorial\DataStructure\DynamicArr</Filter>
+    </ClCompile>
+    <ClCompile Include="CDArr.cpp">
+      <Filter>소스 파일\Tutorial\DataStructure\DynamicArr_Class</Filter>
+    </ClCompile>
+    <ClCompile Include="sort.cpp">
+      <Filter>소스 파일\Tutorial\Sort</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HeukKell_Vector.h">
+      <Filter>소스 파일\HeukKell</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>소스 파일\Tutorial\DataStructure\List</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArr.h">
+      <Filter>소스 파일\Tutorial\DataStructure\DynamicArr</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>소스 파일\Tutorial\DataStructure\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="CDArr.h">
+      <Filter>소스 파일\Tutorial\DataStructure\DynamicArr_Class</Filter>
+    </ClInclude>
+    <ClInclude Include="sort.h">
+      <Filter>소스 파일\Tutorial\Sort</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

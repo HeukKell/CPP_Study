@@ -1,15 +1,15 @@
-#include "sort.h"
+ï»¿#include "sort.h"
 
-/* Á¤·Ä::¹öºí¼ÒÆ®
-		@param pArr ¹è¿­ÀÇ ½ÃÀÛÁÖ¼Ò
-		@param count ¸î°³ÀÇ ¿ä¼Ò°¡ ÀÖ´ÂÁö
+/* ì •ë ¬::ë²„ë¸”ì†ŒíŠ¸
+		@param pArr ë°°ì—´ì˜ ì‹œìž‘ì£¼ì†Œ
+		@param count ëª‡ê°œì˜ ìš”ì†Œê°€ ìžˆëŠ”ì§€
 */
 void bubbleSort(int* pArr, int iCount) {
 
 	for (int i = iCount; i > 0; i--) {
 		for (int k = 0; k < i - 1; k++) {
 
-			// ¿ÞÂÊÀÌ ¿À¸¥ÂÊº¸´Ù Å©´Ù¸é ÀÚ¸®¹Ù²ã
+			// ì™¼ìª½ì´ ì˜¤ë¥¸ìª½ë³´ë‹¤ í¬ë‹¤ë©´ ìžë¦¬ë°”ê¿”
 			if (pArr[k] > pArr[k + 1]) {
 				int temp = pArr[k];
 				pArr[k] = pArr[k + 1];
