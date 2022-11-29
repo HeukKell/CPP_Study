@@ -93,6 +93,52 @@ public:
 	/* 데이터 입력 */
 	bool insert(const Pair<KeyType, ValueType>& pair);
 
+	class iterator;
+
+	/* 가장 왼쪽 노드를 반환합니다. */
+	iterator begin();
+
+	iterator end();
+
+	/* key 값을 받아 iterator 를 반환하는 함수 */
+	iterator find(const KeyType& key);
+
+
+public:
+
+	/* iterator
+	*  노드를 가리키는 이터레이터
+	*/
+	class iterator {
+
+	private:
+		BST<KeyType, ValueType>* pBST;		// BST 본체도 알고 있다.
+		BSTNode<KeyType, ValueType>* pNode; // null 인경우 end iterator;
+
+	public:
+		iterator()
+			: pBST(nullptr)
+			, pNode(nullptr)
+		{
+
+		}
+
+		iterator( BST<KeyType, ValueType>* _pBST, BSTNode<KeyType, ValueType>* _PNode)
+			: pBST(_pBST)
+			, pNode(_PNode)
+		{
+			
+		}
+
+
+		/* 값을 반환 */
+		Pair<KeyType,ValueType>& operator *()
+		{
+			return pNode->pair;
+		}
+		
+	};
+
 };
 
 template<typename KeyType, typename ValueType>
@@ -105,6 +151,7 @@ inline bool BST<KeyType, ValueType>::insert(const Pair<KeyType,ValueType>& _pair
 	{
 		pRootNode = pNewNode;
 		++iCount;
+		return true;
 	}
 	else {
 		/* 위치찾는 작업
@@ -115,7 +162,7 @@ inline bool BST<KeyType, ValueType>::insert(const Pair<KeyType,ValueType>& _pair
 		*/
 		
 		BSTNode<KeyType, ValueType>* pNode = pRootNode; // 루트노드를 가리키고
-		enum NodeType  nodeType = NodeType::END;		// 아무것도 가리키지 않는 타입으로 선언, 이것을 BSTNode 의 인덱스로 넣어줄것이야. PARENT = 0, LCHILD = 1, RCHILD =2, END = 3
+		NodeType  nodeType = NodeType::END;		// 아무것도 가리키지 않는 타입으로 선언, 이것을 BSTNode 의 인덱스로 넣어줄것이야. PARENT = 0, LCHILD = 1, RCHILD =2, END = 3
 
 		// 자리 찾아서 연결
 		while (true)
@@ -137,7 +184,7 @@ inline bool BST<KeyType, ValueType>::insert(const Pair<KeyType,ValueType>& _pair
 				pNode->arrNode[(int)nodeType] = pNewNode; // 자식노드 설정
 				pNewNode->arrNode[(int)NodeType::PARENT] = pNode;  // 부모 노드 설정
 				++iCount;
-				break;
+				return true;
 			}
 			else {
 				// 가고자 하는 쪽에 자식이 이미 있는경우
@@ -145,9 +192,57 @@ inline bool BST<KeyType, ValueType>::insert(const Pair<KeyType,ValueType>& _pair
 			}
 
 		}
-		
-		
 
 	}
 	
+}
+
+template<typename KeyType, typename ValueType>
+inline typename BST<KeyType,ValueType>::iterator BST<KeyType, ValueType>::begin()
+{
+	BSTNode<KeyType, ValueType>* pNode = pRootNode; // 루트노드부터 시작하여
+
+	while (nullptr != pNode->arrNode[(int)NodeType::LCHILD])
+	{
+		pNode = pNode->arrNode[(int)NodeType::LCHILD]; // 왼쪽 자식을 가리키도록 이동
+	}
+
+	return iterator(this,pNode);
+}
+
+template<typename KeyType, typename ValueType>
+inline typename BST<KeyType, ValueType>::iterator BST<KeyType, ValueType>::end()
+{
+	return iterator(this,nullptr);
+}
+
+template<typename KeyType, typename ValueType>
+inline typename BST<KeyType,ValueType>::iterator BST<KeyType, ValueType>::find(const KeyType& key)
+{
+	// 찾는 과정이 insert 와 비슷하다.
+	// 크기 비교 : 크면 오른쪽 작으면 왼쪽으로 가다가 같으면 그것이 key 값이야.
+
+	BSTNode<KeyType, ValueType>* pNode = pRootNode; // 루트노드부터 시작하여
+	NodeType nodeType = NodeType::END; // 방향 초기화
+
+	// 위치찾을때까지 반복
+	while (nullptr != pNode)
+	{
+		
+		if (pNode->pair.first > key) {	// key 값이 현재 노드의 key 값보다 작은경우 방향을 왼쪽자식으로 설정
+			nodeType = NodeType::LCHILD;
+
+		}
+		else if (pNode->pair.first < key){	// key 값이 현재노드의 key 값보다 큰경우 방향을 오른쪽 자식으로 설정
+			nodeType = NodeType::RCHILD;
+		}
+		else {	// key 값과 현재노드의 key 값이 같은경우. 반환
+			return iterator(this, pNode);
+		}
+
+		pNode = pNode->arrNode[(int)nodeType];	// 이동후 반복
+	}
+
+	// 반복했는데 nullptr 까지 못찾았다면 
+	return end();
 }
