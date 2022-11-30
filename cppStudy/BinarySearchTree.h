@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <assert.h>
 
 /* BST Node 의 내부 노드 배열의 인덱스로 사용할 열거형 */
 enum NodeType {
@@ -131,10 +132,39 @@ public:
 		}
 
 
-		/* 값을 반환 */
-		Pair<KeyType,ValueType>& operator *()
-		{
+		/* 값을 반환 
+		*  여기에서는 다르게 수정할 수 없게 해야한다.
+		*  왜냐하면, key 값에 의해 자리가 결정되었는데, key 값을 바꾸어버리면, 다 틀어진다.
+		*  값만 확인할 수 있도록 한다.
+		*/
+		const Pair<KeyType,ValueType>& operator *(){
+			assert(pNode); // 가리키고 있는 포인터가 nullptr 이라면 중단
 			return pNode->pair;
+		}
+
+		/* 값을 반환
+		*  & 연산은 Pair 그자체를 반환했다면 -> 연산은 한번 덜 직접적이게 반환하는 방법으로. 
+		*  포인터 자료형은 -> 을 쓸 수 있으니까. 사용자가 원하는 값을 가져갈 수 있을것이다.
+		*/
+		const Pair<KeyType, ValueType>* operator ->(){
+			assert(pNode);
+			return &(pNode->pair);
+		}
+
+		/* 비교 연산자 */
+		bool operator == (const iterator& _other)
+		{
+			if (pBST == _other.pBST && pNode == _other.pNode){
+				return true
+			}
+			else {
+				return false;
+			}
+		}
+		
+		/* 비교 연산자 */
+		bool operator != (const iterator& _other) {
+			return !(*this == _other)
 		}
 		
 	};

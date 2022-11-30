@@ -2,7 +2,7 @@
 #include <string>
 #include "BinarySearchTree.h"
 
-/* BinarySearchTree 상용방법 */
+/* BinarySearchTree 사용방법 */
 
 using std::string;
 using std::cout;
@@ -26,7 +26,7 @@ void useBST() {
 	// 값을 받을 이터레이터 선언후, 찾은값을 받기
 	BST<string, int>::iterator findIter = map.find(string("student2"));
 
-	cout << (*findIter).second << "<- 찾은값" << endl;
+	cout << findIter->second << "<- 찾은값" << endl;
 
 	return;
 };
