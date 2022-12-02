@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿#pragma once
+#include <iostream>
 #include <string>
 #include "BinarySearchTree.h"
 
@@ -27,6 +28,23 @@ void useBST() {
 	BST<string, int>::iterator findIter = map.find(string("student2"));
 
 	cout << findIter->second << "<- 찾은값" << endl;
+
+	cout << "순차 출력 테스트 ------------------------------" << endl;
+	// key 값에 따라 순자차적으로 반환하는 방법
+	BST<int, int> map2;
+
+	map2.insert(make_BSTPair(10, 10));
+	map2.insert(make_BSTPair(50, 50));
+	map2.insert(make_BSTPair(30, 30));
+	map2.insert(make_BSTPair(80, 80));
+	map2.insert(make_BSTPair(20, 20));
+
+	BST<int, int>::iterator map2Iter = map2.begin(); // 시작점을 가리키도록
+
+	for (map2Iter; map2Iter != map2.end(); ++map2Iter) {
+
+		cout << "Key : " << map2Iter->first << ", Value : " << map2Iter->second << endl;
+	}
 
 	return;
 };

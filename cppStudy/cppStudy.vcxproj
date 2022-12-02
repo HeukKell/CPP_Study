@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="CDArr.cpp" />
     <ClCompile Include="DynamicArr.cpp" />
-    <ClCompile Include="HowUse_BinarySearchTree.cpp" />
     <ClCompile Include="HowUse_BinarySearchTree.h" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />

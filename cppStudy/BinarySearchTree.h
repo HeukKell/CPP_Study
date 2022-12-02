@@ -67,6 +67,30 @@ struct BSTNode
 	{
 
 	}
+
+public:
+
+	/* 왼쪽 자식 노드인지 검증하는 함수
+	* 사용하기 전에 부모노드가 nullptr 인지 확인후 사용하도록 하자
+	*/
+	bool isLeftChild()
+	{
+		return this->arrNode[(int)NodeType::PARENT]->arrNode[(int)NodeType::LCHILD] == this ? true : false;
+	}
+
+	/* 왼쪽 자식 노드인지 검증하는 함수
+	* 사용하기 전에 부모노드가 nullptr 인지 확인후 사용하도록 하자
+	*/
+	bool isRightChild()
+	{
+		return this->arrNode[(int)NodeType::PARENT]->arrNode[(int)NodeType::RCHILD] == this ? true : false;
+	}
+
+	/* 호출한 노드가 root node 인지 확인 하는 함수 */
+	bool isRoot()
+	{
+		return this->arrNode[(int)NodeType::PARENT] == nullptr ? true : false;
+	}
 };
 
 
@@ -103,6 +127,12 @@ public:
 
 	/* key 값을 받아 iterator 를 반환하는 함수 */
 	iterator find(const KeyType& key);
+
+	/* 중위 후속자 노드 반환 */
+	BSTNode<KeyType, ValueType>* GetInOrderSuccessor(BSTNode<KeyType, ValueType>* _pNode);
+	
+	/* 중위 선행자 노드 반환 */
+	BSTNode<KeyType, ValueType>* GetInOrderPredecessor(BSTNode<KeyType, ValueType>* _pNode);
 
 
 public:
@@ -155,7 +185,7 @@ public:
 		bool operator == (const iterator& _other)
 		{
 			if (pBST == _other.pBST && pNode == _other.pNode){
-				return true
+				return true;
 			}
 			else {
 				return false;
@@ -164,7 +194,13 @@ public:
 		
 		/* 비교 연산자 */
 		bool operator != (const iterator& _other) {
-			return !(*this == _other)
+			return !(*this == _other);
+		}
+
+		/* 다음 노드를 가리키는 이터레이터를 반환하는 연산자 */
+		iterator& operator ++ () {
+			pNode = pBST->GetInOrderSuccessor(pNode);
+			return *this;
 		}
 		
 	};
@@ -192,7 +228,7 @@ inline bool BST<KeyType, ValueType>::insert(const Pair<KeyType,ValueType>& _pair
 		*/
 		
 		BSTNode<KeyType, ValueType>* pNode = pRootNode; // 루트노드를 가리키고
-		NodeType  nodeType = NodeType::END;		// 아무것도 가리키지 않는 타입으로 선언, 이것을 BSTNode 의 인덱스로 넣어줄것이야. PARENT = 0, LCHILD = 1, RCHILD =2, END = 3
+		NodeType nodeType = NodeType::END;		// 아무것도 가리키지 않는 타입으로 선언, 이것을 BSTNode 의 인덱스로 넣어줄것이야. PARENT = 0, LCHILD = 1, RCHILD =2, END = 3
 
 		// 자리 찾아서 연결
 		while (true)
@@ -275,4 +311,102 @@ inline typename BST<KeyType,ValueType>::iterator BST<KeyType, ValueType>::find(c
 
 	// 반복했는데 nullptr 까지 못찾았다면 
 	return end();
+}
+
+template<typename KeyType, typename ValueType>
+inline BSTNode<KeyType, ValueType>* BST<KeyType, ValueType>::GetInOrderSuccessor(BSTNode<KeyType, ValueType>* _pNode)
+{
+	/*
+	if(오른쪽 자식을 보유){
+		오른쪽 자식으로 이동;
+		
+		while (왼쪽자식이 있다면)
+		{
+			왼쪽자식으로 이동
+		}
+
+		반환, 중위 후속자에 도달했다.
+	}
+	else if ( 왼쪽 자식인 경우 ){
+		부모가 중위 후속자 이다.
+	}
+	else if ( 오른쪽 자식인 경우 ){
+		부모로 한칸 이동.
+	
+		while( 왼쪽 자식이 아니라면 )
+		{
+			if( 부모가 없다면 ) { 내가 끝노드였어, 나보다 큰 노드는 없었어. 즉 부모중에는 왼쪽 자식에 해당하는 노드가 없다는거야 }
+			
+			부모로 한칸 이동
+		}
+		부모중 왼쪽자식에 해당하는 노드 반환
+	}
+	else{
+		// 오른쪽 자식도 없고, 왼쪽 자식도 아니고 오른쪽 자식도 아니야.
+		// 하나밖에 없는 루트 노드 라는 소리.
+	} 
+	*/
+
+	BSTNode<KeyType, ValueType>* pSuccessor = nullptr; 
+
+	if (nullptr != _pNode->arrNode[(int)NodeType::RCHILD])	// 오른쪽 자식이 있는경우
+	{
+		pSuccessor = _pNode->arrNode[(int)NodeType::RCHILD];
+
+		while ( nullptr != pSuccessor->arrNode[(int)NodeType::LCHILD] )
+		{
+			// 오른쪽 자식중 가능 왼쪽에 있는 값에 도달하면 반복문 탈출후 반환
+			pSuccessor = pSuccessor->arrNode[(int)NodeType::LCHILD];
+		}
+	}
+	else {
+		
+		pSuccessor = _pNode;
+
+		//오른쪽 자식 없는 부모라면 그대로 반환. 내 다음은 없으니까.
+		if (pSuccessor->isRoot()) { 
+			return nullptr;
+		}
+
+		// 내가 왼쪽 자식이라면, 내 부모가 다음노드야
+		if (pSuccessor->isLeftChild()) {
+			pSuccessor = _pNode->arrNode[NodeType::PARENT];
+		}
+		else { // 내가 오른쪽 자식 이라면.
+			
+			pSuccessor = pSuccessor->arrNode[(int)NodeType::PARENT]; // 부모부터 시작이야
+			
+			// 부모중에서 반복...
+			while ( pSuccessor )
+			{
+				if (pSuccessor->isRoot() ) {
+					// 부모가 없다. 즉 헤더노드까지 올라왔어.
+					/* 만약 현재 이 함수 진입시 노드보다 큰 수가 있다면
+					*  부모중에는 왼쪽 자식인 노드가 있을텐데, 루트노드까지 올라왔음에도 만나지 못했다는건, 자신보다 큰 수가 없다는 것이다.
+					*/
+					pSuccessor = nullptr;
+					break;
+				}
+
+				if (pSuccessor->isLeftChild()) {					
+					// 부모중에 왼쪽자식에 해당하는 노드가 있다면, 그 노드의 부모가 다음 노드야. 꺽이는 지점이다.
+					pSuccessor = pSuccessor->arrNode[(int)NodeType::PARENT];
+					break;
+				}
+				else {
+					// 부모노드가 왼쪽 자식이 아닐때 까지  올라갈꺼야. 즉 꺽이는지점. 자신보다 큰수가 있는경우를 찾는것과 마찬가지의 의미다.
+					pSuccessor = pSuccessor->arrNode[(int)NodeType::PARENT]; // -> 반복 ( 부모로 올라가 )
+				}
+
+			}
+
+		}
+	}
+	return pSuccessor;
+}
+
+template<typename KeyType, typename ValueType>
+inline BSTNode<KeyType, ValueType>* BST<KeyType, ValueType>::GetInOrderPredecessor(BSTNode<KeyType, ValueType>* _pNode)
+{
+	return nullptr;
 }
