@@ -91,6 +91,22 @@ public:
 	{
 		return this->arrNode[(int)NodeType::PARENT] == nullptr ? true : false;
 	}
+
+	/* 자식이 없는 노드(단말노드) 인지 반환하는 함수 */
+	bool isLeaf() {
+		if (nullptr == this->arrNode[(int)NodeType::LCHILD] && nullptr == this->arrNode[(int)NodeType::RCHILD]) {
+			return true;
+		}
+		return false;
+	}
+
+	/* 자식이 모두 있는 노드 인지 여부를 반환하는 함수 */
+	bool isFull() {
+		if (nullptr != this->arrNode[(int)NodeType::LCHILD] && nullptr != this->arrNode[(int)NodeType::RCHILD]) {
+			return true;
+		}
+		return false;
+	}
 };
 
 
@@ -114,11 +130,13 @@ public:
 
 
 public:
+	class iterator;
 
 	/* 데이터 입력 */
 	bool insert(const Pair<KeyType, ValueType>& pair);
 
-	class iterator;
+	/* 데이터 삭제 */
+	iterator erase(iterator deleteNodeIter);
 
 	/* 가장 왼쪽 노드를 반환합니다. */
 	iterator begin();
@@ -135,12 +153,21 @@ public:
 	BSTNode<KeyType, ValueType>* GetInOrderPredecessor(BSTNode<KeyType, ValueType>* _pNode);
 
 
+private :
+	/* 노드 삭제
+	* 입력한 이터레이터가 가리키는 노드를 삭제하고 다음 중위후속자 노드를 반환하는 함수
+	*/
+	BSTNode<KeyType,ValueType>* deleteNode(BSTNode<KeyType, ValueType>* pDeleteNode);
+
+
 public:
 
 	/* iterator
 	*  노드를 가리키는 이터레이터
 	*/
 	class iterator {
+
+		friend class BST; // BST 가 iterator 의 값에 접근할 수 있도록
 
 	private:
 		BST<KeyType, ValueType>* pBST;		// BST 본체도 알고 있다.
@@ -261,6 +288,80 @@ inline bool BST<KeyType, ValueType>::insert(const Pair<KeyType,ValueType>& _pair
 
 	}
 	
+}
+
+template<typename KeyType, typename ValueType>
+inline typename BST<KeyType,ValueType>::iterator BST<KeyType, ValueType>::erase(BST<KeyType, ValueType>::iterator deleteNodeIter)
+{
+	BST<KeyType, ValueType>::iterator successorIter(this, deleteNode(deleteNodeIter.pNode));
+	return successorIter;
+}
+
+template<typename KeyType, typename ValueType>
+inline typename BSTNode<KeyType,ValueType>* BST<KeyType, ValueType>::deleteNode(BSTNode<KeyType,ValueType>* pDeleteNode)
+{
+	BSTNode<KeyType,ValueType>* pSuccessorNode = GetInOrderSuccessor(pDeleteNode); // 우선 후속 노드를 가리키도록 설정, 반환할 노드가 된다.
+
+	// 삭제할 노드가 자식이 없는경우 ( 리프노드 인 경우 ) -> 부모에게서 연결을 끊고, 삭제,
+	// 삭제할 노드가 자식이 있는경우 : 1개 -> 삭제하려는 노드의 부모와 자식을 연결후 삭제할 노드는 삭제
+	// 삭제할 노드가 자식이 있는경우 : 2개 -> 해당 노드의 값을 중위후속자 로 채우고, 중위 후속자의 자리는 중위후속자의 자식여부를 따라서 처리
+
+	// case 1 : 자식이 없는경우
+	if (pDeleteNode->isLeaf()) {
+
+		if (pDeleteNode->isRoot()) { // 자식노드가 없는데, 루트노드 이기 가지 하다면! 그냥 nullptr 반환
+			pRootNode = nullptr;
+		}
+		else {	// 자식노드가 없는데 루트노드는 아니라면
+
+			// 삭제시키려는 노드의 인덱스를 찾습니다. [왼쪽 || 오른쪽] 자식에 해당하는지.
+			NodeType eDeleteNodeDirectionIdx = pDeleteNode->isLeftChild() ? NodeType::LCHILD : NodeType::RCHILD;
+			pDeleteNode->arrNode[(int)NodeType::PARENT]->arrNode[(int)eDeleteNodeDirectionIdx] = nullptr;
+		}
+
+		--iCount;
+		delete pDeleteNode;	// 해당 노드 삭제.
+	}
+	// case 2 : 삭제하려는 노드의 자식이 왼쪽 오른쪽 모두 있어.
+	else if (pDeleteNode->isFull())
+	{
+		// 삭제할 노드의 자리에 중위 후속자의 값을 복사 시킨다.
+		pDeleteNode->pair = pSuccessorNode->pair;
+
+		// 중위 후속자를 삭제시킨다.
+		deleteNode(pSuccessorNode);	// 중위후속자는 자식이 1개 (오른쪽 자식) 이 있거나 없을 수 있다. 이는 재귀함수를 통해 case 1 또는 3 에 걸릴것이다.
+
+		// 반환할 노드는 곧 삭제할 노드가 된다. 삭제할 노드의 값에 중위 후속자의 값이 있으니까.
+		pSuccessorNode = pDeleteNode;
+	}
+	// case 3 : 삭제하려는 노드의 자식이 하나만 있는 경우
+	else {
+		// 손자 노드의 idx , 즉 삭제하려는 노드의 자식이 하나 있는데, 그 자식이 왼쪽에 있는지 오른쪽에 있는지 임시 저장하는 enum
+		NodeType eChildNodeIdx = (nullptr != pDeleteNode->arrNode[(int)NodeType::LCHILD] ? NodeType::LCHILD : NodeType::RCHILD);
+		
+		// 삭제하려는 노드가 루트인 경우
+		if (pDeleteNode->isRoot())
+		{
+			pRootNode = pDeleteNode->arrNode[(int)eChildNodeIdx];	// 루트노드로 자식 연결
+			pRootNode->arrNode[(int)NodeType::PARENT] = nullptr;	// 루트노드의 부모는 없다
+		}
+		else {
+
+			// 삭제노드의 idx, 즉 삭제하려는 노드가 왼쪽자식인지 오른쪽 자식인지 임시 저장하는 enum
+			NodeType eDeleteNodeDirectionIdx = pDeleteNode->isLeftChild() ? NodeType::LCHILD : NodeType::RCHILD;
+
+			// 부모노드의 (좌 || 우)자식을 가리키는 노드의 주소값을 ( 삭제하려는 노드의 자식, 즉 손자) 으로 연결하자.
+			pDeleteNode->arrNode[(int)NodeType::PARENT]->arrNode[(int)eDeleteNodeDirectionIdx] = pDeleteNode->arrNode[(int)eChildNodeIdx];
+
+			// (자식노드)에서도 (삭제하려는 노드의 부모) 를 연결해야한다.
+			pDeleteNode->arrNode[(int)eChildNodeIdx]->arrNode[(int)NodeType::PARENT] = pDeleteNode->arrNode[(int)NodeType::PARENT];
+			// 손자와 부모의 노드 연결 완료
+		}
+		delete pDeleteNode;
+		--iCount;
+	}
+	
+	return pSuccessorNode;
 }
 
 template<typename KeyType, typename ValueType>
