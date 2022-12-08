@@ -154,6 +154,7 @@
     <ClInclude Include="HeukKell_Vector.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="sort.h" />
+    <ClInclude Include="HowUse_Class_inherit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -40,6 +40,9 @@
     <Filter Include="소스 파일\Tutorial\DataStructure\Tree">
       <UniqueIdentifier>{07c90fe7-e111-4101-ab88-778fe531058b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tutorial\Class">
+      <UniqueIdentifier>{2616eb00-fe54-4d5c-9704-49127abf5499}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="BinarySearchTree.h">
       <Filter>소스 파일\Tutorial\DataStructure\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="HowUse_Class_inherit.h">
+      <Filter>소스 파일\Tutorial\Class</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
