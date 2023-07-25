@@ -1,4 +1,5 @@
-﻿#include "List.h"
+﻿#include "pch.h"
+#include "List.h"
 #include <iostream>
 
 void SListInit(SList* pSList)
