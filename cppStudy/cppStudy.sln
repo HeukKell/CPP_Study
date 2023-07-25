@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cppStudy", "cppStudy.vcxproj", "{F7BDA55F-A60A-43C0-A66E-846308001C01}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EventLoopModel", "..\EventLoopModel\EventLoopModel.vcxproj", "{42E764B9-2CC0-4713-A95D-053327425C45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{F7BDA55F-A60A-43C0-A66E-846308001C01}.Release|x64.Build.0 = Release|x64
 		{F7BDA55F-A60A-43C0-A66E-846308001C01}.Release|x86.ActiveCfg = Release|Win32
 		{F7BDA55F-A60A-43C0-A66E-846308001C01}.Release|x86.Build.0 = Release|Win32
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Debug|x64.ActiveCfg = Debug|x64
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Debug|x64.Build.0 = Debug|x64
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Debug|x86.ActiveCfg = Debug|Win32
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Debug|x86.Build.0 = Debug|Win32
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Release|x64.ActiveCfg = Release|x64
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Release|x64.Build.0 = Release|x64
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Release|x86.ActiveCfg = Release|Win32
+		{42E764B9-2CC0-4713-A95D-053327425C45}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
