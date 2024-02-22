@@ -17,6 +17,18 @@
     <Filter Include="소스 파일\DataStructure\List">
       <UniqueIdentifier>{f90238e3-159f-4381-8946-32ed697de9ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\DataStructure\Queue">
+      <UniqueIdentifier>{16bee19d-cf77-4ea7-96ad-02867f956c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DataStructure\Queue\ConcurrentQueue">
+      <UniqueIdentifier>{01288b63-b1c1-48cb-9350-622d4e124268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DataStructure\Stack">
+      <UniqueIdentifier>{1ca2be04-99f9-4dd1-9e12-93d50c84e2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DataStructure\Stack\ConcurrentStack">
+      <UniqueIdentifier>{4453bc49-8ff6-46a6-9bb2-ef52488a5067}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStructure.cpp">
@@ -47,6 +59,12 @@
     </ClInclude>
     <ClInclude Include="List.h">
       <Filter>소스 파일\DataStructure\List</Filter>
+    </ClInclude>
+    <ClInclude Include="ConcurrentQueue.h">
+      <Filter>소스 파일\DataStructure\Queue\ConcurrentQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="ConcurrentStack.h">
+      <Filter>소스 파일\DataStructure\Stack\ConcurrentStack</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

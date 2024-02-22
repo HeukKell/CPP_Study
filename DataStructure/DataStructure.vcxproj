@@ -152,9 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="ConcurrentStack.h" />
     <ClInclude Include="DataStructure.h" />
     <ClInclude Include="HowToUse_BinarySearchTree.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="ConcurrentQueue.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="TemplateContainer.h" />
   </ItemGroup>

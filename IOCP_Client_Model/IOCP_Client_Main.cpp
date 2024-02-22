@@ -60,9 +60,9 @@ int main()
 	while (true)
 	{
 
-		gets_s(InputBuffer, sizeof(InputBuffer));
+		/*gets_s(InputBuffer, sizeof(InputBuffer));*/
 
-		/*sprintf_s(InputBuffer, sizeof(InputBuffer), "%d", i++);*/
+		sprintf_s(InputBuffer, sizeof(InputBuffer), "%d", i++);
 
 		if (0 == strcmp(InputBuffer, "EXIT"))
 		{
